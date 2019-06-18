@@ -7,6 +7,17 @@ const lambdaHandlerWithFactory = `
   const handlerFactory = require("${HANDLER_FACTORY_PATH}");
 
   module.exports.render = (event, context, callback) => {
+    if(event.path.split('/')[3]){
+      event.queryStringParameters = {id: event.path.split('/')[3]}
+      event.multiValueQueryStringParameters = { id: [event.path.split('/')[3]] }
+
+      event.multiValueHeaders = {}
+      for (var key in event.headers) {
+        if (event.headers.hasOwnProperty(key)) {
+          event.multiValueHeaders[key] = [ event.headers[key] ]
+        }
+      }
+    }
     const handler = handlerFactory(page);
     handler(event, context, callback);
   };

@@ -7,7 +7,8 @@ const reqResMapper = (event, callback) => {
     body: Buffer.from(""),
     isBase64Encoded: base64Support,
     statusCode: 200,
-    multiValueHeaders: {}
+    multiValueHeaders: {},
+    headers: {'Content-Type':'text/html; charset=utf-8'}
   };
 
   const req = new Stream.Readable();
